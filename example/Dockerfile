@@ -8,5 +8,7 @@ RUN git clone https://github.com/Kurento/kurento-tutorial-node.git \
     && cd kurento-tutorial-node/kurento-hello-world \
     && git checkout 6.9.0 \
     && npm install
+RUN cd /kurento-tutorial-node/kurento-hello-world/static \
+ && bower install  --allow-root
 
 CMD npm start

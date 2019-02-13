@@ -1,0 +1,16 @@
+version: '2'
+services:
+  kurento:
+    container_name: kurento
+    environment:
+      - GST_DEBUG=5
+    image: instrumentisto/kurento:latest
+    network_mode: service:example
+  example:
+    container_name: example
+    image: kurento/example
+    build: ./example
+    working_dir: /kurento-tutorial-node/kurento-hello-world
+    ports:
+      - '8443:8443'
+
