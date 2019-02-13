@@ -3,7 +3,7 @@ services:
   kurento:
     container_name: kurento
     environment:
-      - GST_DEBUG=5
+      - GST_DEBUG=3
     image: instrumentisto/kurento:latest
     network_mode: service:example
   example:
@@ -12,5 +12,13 @@ services:
     build: ./example
     working_dir: /kurento-tutorial-node/kurento-hello-world
     ports:
-      - '8443:8443'
-
+      - '8444:8444'
+  bot:
+    container_name: bot
+    build: ./bot
+    image: kurento/bot
+    working_dir: /client
+    network_mode: service:example
+    depends_on:
+      - example
+      - kurento

@@ -9,7 +9,7 @@ if(process.argv[2]){
   ws_uri = process.argv[2];
 }else{
   console.error("Required argument missing: node index.js <ws_uri>");
-  console.error("Example: node index.js wss://127.0.0.1:8444/helloworld");
+  console.error("Example: node index.js wss://127.0.0.1:8443/helloworld");
   process.exit();
 }
 
@@ -41,23 +41,12 @@ sdp.media[0].icePwd = credentials.pwd;
 var localSdp = transform.write(sdp);
 
 stream.on('gatheringDone', function(candidates) {
-  console.log("GATERING DONE", candidates);
-
-  console.log("CONNECT TO WEB SOCKET: "+ ws_uri);
+  console.log("gatheringDone!±!!!!!!!!!", candidates);
+  
   var ws = new WebSocket(ws_uri, {
     perMessageDeflate: false
   });
-
-
-  ws.on('error', function onError(error) {
-    console.log("error = ", error)
-
-  });
-
-  ws.on('close', function onClose() {
-    console.log("CLOSED")
-  });
-
+console.log("OPEN WEBSOCKET!!!");
   ws.on('open', function open() {
     console.log("websocket open");
     ws.send(JSON.stringify({
@@ -65,6 +54,14 @@ stream.on('gatheringDone', function(candidates) {
       "sdpOffer":localSdp
     }));
 
+    ws.on('error', function onError(error) {
+      console.log("error = ", error)
+
+    });
+
+    ws.on('close', function onClose() {
+        console.log("CLOSED")
+    })
 
     var candidates = stream.getLocalIceCandidates();
     console.log("candidates", candidates);
