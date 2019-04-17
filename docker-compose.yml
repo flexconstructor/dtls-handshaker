@@ -3,8 +3,8 @@ services:
   kurento:
     container_name: kurento
     environment:
-      - GST_DEBUG=7
-    image: instrumentisto/kurento:6.9.0-sf
+      - GST_DEBUG=4
+    image: instrumentisto/kurento:6.10.0-r3
     network_mode: service:example
   example:
     container_name: example
